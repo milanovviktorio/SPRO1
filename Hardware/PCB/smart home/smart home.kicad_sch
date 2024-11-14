@@ -662,168 +662,6 @@
 				)
 			)
 		)
-		(symbol "Diode:1N4148WT"
-			(pin_numbers hide)
-			(pin_names hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "D"
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "1N4148WT"
-				(at 0 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "Diode_SMD:D_SOD-523"
-				(at 0 -4.445 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://www.diodes.com/assets/Datasheets/ds30396.pdf"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "75V 0.15A Fast switching Diode, SOD-523"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Sim.Device" "D"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Sim.Pins" "1=K 2=A"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "diode"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "D*SOD?523*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "1N4148WT_0_1"
-				(polyline
-					(pts
-						(xy -1.27 1.27) (xy -1.27 -1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 0) (xy -1.27 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "1N4148WT_1_1"
-				(pin passive line
-					(at -3.81 0 0)
-					(length 2.54)
-					(name "K"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 3.81 0 180)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "MCU_Module:Arduino_Nano_v3.x"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -3443,7 +3281,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 33.02) (xy 48.26 33.02)
+			(xy 44.45 33.02) (xy 68.58 33.02)
 		)
 		(stroke
 			(width 0)
@@ -5800,7 +5638,7 @@
 				)
 			)
 		)
-		(property "Value" "30k"
+		(property "Value" "15k"
 			(at 179.07 150.114 90)
 			(effects
 				(font
@@ -6059,7 +5897,6 @@
 		)
 	)
 	(symbol
-		(lib_name "smarthome:RGB")
 		(lib_id "smarthome:RGB")
 		(at 80.01 153.67 270)
 		(unit 1)
@@ -6265,74 +6102,6 @@
 			(project ""
 				(path "/b726fc1f-30ae-44cd-958d-708c20b9733a"
 					(reference "#PWR027")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Motor:Fan")
-		(at 68.58 25.4 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "2553a2fb-ed86-4231-b0e5-566547ec2b18")
-		(property "Reference" "M1"
-			(at 68.58 17.78 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Fan"
-			(at 68.58 20.32 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 68.326 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 68.326 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Fan"
-			(at 68.58 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "53ca9ca4-54be-45e3-8ca3-a07c93ed6baa")
-		)
-		(pin "1"
-			(uuid "15eef7a9-709e-4a81-bebd-aa1e805c1797")
-		)
-		(instances
-			(project ""
-				(path "/b726fc1f-30ae-44cd-958d-708c20b9733a"
-					(reference "M1")
 					(unit 1)
 				)
 			)
@@ -6745,6 +6514,81 @@
 		)
 	)
 	(symbol
+		(lib_id "Transistor_BJT:BC547")
+		(at 68.58 27.94 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2e605178-a774-42a3-9c17-da5607fec3f4")
+		(property "Reference" "Q3"
+			(at 68.58 19.05 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "BC547"
+			(at 68.58 21.59 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
+			(at 70.485 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC550-D.pdf"
+			(at 68.58 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "0.1A Ic, 45V Vce, Small Signal NPN Transistor, TO-92"
+			(at 68.58 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "8c2b0501-765c-4ebe-bd17-b6f5de3afe26")
+		)
+		(pin "1"
+			(uuid "8ab0af69-be83-4b69-8480-08d34c3264b2")
+		)
+		(pin "3"
+			(uuid "ce9b5942-b81a-4849-82ea-4541ffc8565c")
+		)
+		(instances
+			(project "smart home"
+				(path "/b726fc1f-30ae-44cd-958d-708c20b9733a"
+					(reference "Q3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 279.4 67.31 0)
 		(unit 1)
@@ -7026,7 +6870,7 @@
 				)
 			)
 		)
-		(property "Value" "90k"
+		(property "Value" "45k"
 			(at 115.57 169.164 90)
 			(effects
 				(font
@@ -7414,6 +7258,74 @@
 		)
 	)
 	(symbol
+		(lib_id "Motor:Fan")
+		(at 58.42 25.4 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4ee794a7-3a16-4853-bb16-63b94b319405")
+		(property "Reference" "M1"
+			(at 58.42 17.78 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Fan"
+			(at 58.42 20.32 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 58.166 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 58.166 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Fan"
+			(at 58.42 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "d3023ece-00a7-4dfc-936c-eeabb67f16b5")
+		)
+		(pin "1"
+			(uuid "11d5e511-3130-47b6-bad2-0991f896ce59")
+		)
+		(instances
+			(project "smart home"
+				(path "/b726fc1f-30ae-44cd-958d-708c20b9733a"
+					(reference "M1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 271.78 144.78 90)
 		(unit 1)
@@ -7551,81 +7463,6 @@
 			(project "_saved_BSPD"
 				(path "/b726fc1f-30ae-44cd-958d-708c20b9733a"
 					(reference "Q8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Transistor_BJT:BC547")
-		(at 48.26 27.94 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "58152cf2-503d-432a-b60d-053c3e47ec90")
-		(property "Reference" "Q3"
-			(at 48.26 19.05 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "BC547"
-			(at 48.26 21.59 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
-			(at 50.165 22.86 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/BC550-D.pdf"
-			(at 48.26 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.1A Ic, 45V Vce, Small Signal NPN Transistor, TO-92"
-			(at 48.26 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "fab9def9-0698-4d8a-99a4-b04e927e5571")
-		)
-		(pin "1"
-			(uuid "41af594d-c07c-480b-92b3-827cec7f28b9")
-		)
-		(pin "3"
-			(uuid "4db0921b-da34-4720-a07d-aa5812550b48")
-		)
-		(instances
-			(project ""
-				(path "/b726fc1f-30ae-44cd-958d-708c20b9733a"
-					(reference "Q3")
 					(unit 1)
 				)
 			)
@@ -8042,92 +7879,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Diode:1N4148WT")
-		(at 57.15 25.4 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "64ec5e2f-afa3-41bc-a9e8-caf0d2ae2a6e")
-		(property "Reference" "D1"
-			(at 57.15 19.05 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1N4148WT"
-			(at 57.15 21.59 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_SOD-523"
-			(at 57.15 20.955 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/ds30396.pdf"
-			(at 57.15 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "75V 0.15A Fast switching Diode, SOD-523"
-			(at 57.15 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 57.15 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 57.15 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "31e68f99-625b-44c2-acd7-f56ff6f0e519")
-		)
-		(pin "1"
-			(uuid "ce6a8b66-aec2-47c3-919c-de391b180504")
-		)
-		(instances
-			(project ""
-				(path "/b726fc1f-30ae-44cd-958d-708c20b9733a"
-					(reference "D1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 41.91 123.19 0)
 		(unit 1)
@@ -8275,7 +8026,7 @@
 				)
 			)
 		)
-		(property "Value" "90k"
+		(property "Value" "45k"
 			(at 130.81 169.164 90)
 			(effects
 				(font
@@ -8811,7 +8562,6 @@
 		)
 	)
 	(symbol
-		(lib_name "smarthome:RGB")
 		(lib_id "smarthome:RGB")
 		(at 83.82 97.79 270)
 		(unit 1)
@@ -9595,7 +9345,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+5V"
+		(property "Value" "+9V"
 			(at 40.64 16.51 0)
 			(effects
 				(font
@@ -9726,7 +9476,7 @@
 				)
 			)
 		)
-		(property "Value" "90k"
+		(property "Value" "45k"
 			(at 99.06 169.164 90)
 			(effects
 				(font
@@ -9859,7 +9609,7 @@
 				)
 			)
 		)
-		(property "Value" "30k"
+		(property "Value" "15k"
 			(at 30.48 173.736 90)
 			(effects
 				(font
@@ -11232,7 +10982,7 @@
 				)
 			)
 		)
-		(property "Value" "5k"
+		(property "Value" "7.5k"
 			(at 40.64 33.02 90)
 			(effects
 				(font
@@ -11277,6 +11027,73 @@
 			(project ""
 				(path "/b726fc1f-30ae-44cd-958d-708c20b9733a"
 					(reference "R3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 46.99 25.4 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "dfc64d64-6790-443e-b484-0a6fefe000f7")
+		(property "Reference" "R17"
+			(at 46.99 22.86 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "52"
+			(at 46.99 25.4 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 46.99 27.178 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 46.99 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 46.99 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "f3cd77e3-196f-4fb0-a190-916d8a0de716")
+		)
+		(pin "1"
+			(uuid "35cdbb8c-3d10-44f6-9b25-5cb338505bbc")
+		)
+		(instances
+			(project "smart home"
+				(path "/b726fc1f-30ae-44cd-958d-708c20b9733a"
+					(reference "R17")
 					(unit 1)
 				)
 			)
