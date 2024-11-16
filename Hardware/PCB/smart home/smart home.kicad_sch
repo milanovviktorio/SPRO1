@@ -7,10 +7,8 @@
 	(title_block
 		(title "Semester project (smart house)")
 		(date "2024-10-23")
-		(rev "G man vol.2")
+		(rev "v6")
 		(company "Group 4")
-		(comment 3 "R values must be calculated (correctly)")
-		(comment 4 "Needs some cleaning up")
 	)
 	(lib_symbols
 		(symbol "101020353:LCD_screen"
@@ -5800,7 +5798,7 @@
 				)
 			)
 		)
-		(property "Value" "30k"
+		(property "Value" "15k"
 			(at 179.07 150.114 90)
 			(effects
 				(font
@@ -6059,7 +6057,6 @@
 		)
 	)
 	(symbol
-		(lib_name "smarthome:RGB")
 		(lib_id "smarthome:RGB")
 		(at 80.01 153.67 270)
 		(unit 1)
@@ -7026,7 +7023,7 @@
 				)
 			)
 		)
-		(property "Value" "90k"
+		(property "Value" "45k"
 			(at 115.57 169.164 90)
 			(effects
 				(font
@@ -7791,7 +7788,7 @@
 				)
 			)
 		)
-		(property "Value" "30k"
+		(property "Value" "15k"
 			(at 34.29 117.856 90)
 			(effects
 				(font
@@ -8275,7 +8272,7 @@
 				)
 			)
 		)
-		(property "Value" "90k"
+		(property "Value" "45k"
 			(at 130.81 169.164 90)
 			(effects
 				(font
@@ -8811,7 +8808,6 @@
 		)
 	)
 	(symbol
-		(lib_name "smarthome:RGB")
 		(lib_id "smarthome:RGB")
 		(at 83.82 97.79 270)
 		(unit 1)
@@ -9726,7 +9722,7 @@
 				)
 			)
 		)
-		(property "Value" "90k"
+		(property "Value" "45k"
 			(at 99.06 169.164 90)
 			(effects
 				(font
@@ -9859,7 +9855,7 @@
 				)
 			)
 		)
-		(property "Value" "30k"
+		(property "Value" "15k"
 			(at 30.48 173.736 90)
 			(effects
 				(font
