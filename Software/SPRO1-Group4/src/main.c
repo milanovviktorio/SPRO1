@@ -22,12 +22,12 @@ int main(void) {
   
   while(1) {
     adc_value = adc_read(0);
-    adc_value = (adc_value - 0) * (100 - 0) / (1023 - 0) + 0;
-    printf("ADC Value: %d\n", (int)adc_value);
+    adc_value = adc_value*100/1023;
+    printf("ADC Value: %d\n", 100-(int)adc_value);
     if(PINB & (1 << PB5))
     {
       printf("Detected.\n");
-      pwm3_set_duty(0,0,adc_value);
+      pwm3_set_duty(0,0,100-adc_value);
       _delay_ms(100);
     }else{
       PORTB &= 0<<PB2;
