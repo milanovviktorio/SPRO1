@@ -13,7 +13,7 @@ void pwm1_init(void);
 /**
  * @brief Initialises PWM generation with a frequency of approx. 150Hz at PB0, PB1, PB2 (Manual, Timer1)
  **/
-void pwm3_init(void);
+void pwm_init(void);
 
 /**
  * @brief Sets the PWM output at PB1 to a specific duty cycle
@@ -24,11 +24,14 @@ void pwm1_set_duty(unsigned char);
 
 /**
  * @brief Sets the PWM outputs at PB0, PB1, PB2 to specific duty cycles
- * @param[in] dutyPB0 Duty cycle in percent [0-100]
  * @param[in] dutyPB1 Duty cycle in percent [0-100]
  * @param[in] dutyPB2 Duty cycle in percent [0-100]
+ * @param[in] dutyPB3 Duty cycle in percent [0-100]
+ * @param[in] dutyPD3 Duty cycle in percent [0-100]
+ * @param[in] dutyPD5 Duty cycle in percent [0-100]
+ * @param[in] dutyPD6 Duty cycle in percent [0-100]
  **/
-void pwm3_set_duty(uint8_t, uint8_t, uint8_t);
+void pwm_set_duty(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t);
 
 /**
  * @brief Initialises the ADC module

@@ -5,7 +5,7 @@
 #include <avr/interrupt.h>
 #include "adcpwm.h"
 
-volatile uint8_t _duty0 = 0, _duty1 = 0, _duty2 = 0, _timer_tick;
+volatile uint8_t _duty0 = 0, _duty1 = 0, _duty2 = 0, _duty3 = 0, _duty4 = 0, _duty5 = 0, _timer_tick;
 
 void pwm1_init(void){
     cli();
@@ -16,7 +16,7 @@ void pwm1_init(void){
 }
 
 
-void pwm3_init(void){
+void pwm_init(void){
     DDRB |= (1<<PB2)|(1<<PB1)|(1<<PB0);
     // Disable Timer1
    // TCCR1B = 0; // Makes sure timer 1 is not running
@@ -35,7 +35,7 @@ void pwm1_set_duty(unsigned char input){
        
 }
 
-void pwm3_set_duty(uint8_t input0, uint8_t input1, uint8_t input2){
+void pwm_set_duty(uint8_t input0, uint8_t input1, uint8_t input2, uint8_t input3, uint8_t input4, uint8_t input5){
     TCNT1 = 0;
     if (input0 <= 100){
         _duty0 = input0;
@@ -46,7 +46,15 @@ void pwm3_set_duty(uint8_t input0, uint8_t input1, uint8_t input2){
     if (input2 <= 100){
         _duty2 = input2;
     }
-       
+    if (input3 <= 100){
+        _duty3 = input3;
+    }
+    if (input4 <= 100){
+        _duty4 = input4;
+    }
+    if (input5 <= 100){
+        _duty5 = input5;
+    }
 }
 
 void adc_init(void){
@@ -70,17 +78,27 @@ uint16_t adc_read(uint8_t adc_channel){
 ISR(TIMER1_COMPA_vect){
     // sets the pins to HIGH at start
     if (_timer_tick == 0){
-        PORTB |= (1<<PB0)|(1<<PB1)|(1<<PB2);
+        PORTB |= (1<<PB1)|(1<<PB2)|(1<<PB3);
+        PORTD |= (1<<PD3)|(1<<PD5)|(1<<PD6);
     }
      // sets the pins to LOW at corresponding duty cycle
     if (_timer_tick == _duty0){
-        PORTB &=~(1<<PB0);
-    }
-    if (_timer_tick == _duty1){
         PORTB &=~(1<<PB1);
     }
-    if (_timer_tick == _duty2){
+    if (_timer_tick == _duty1){
         PORTB &=~(1<<PB2);
+    }
+    if (_timer_tick == _duty2){
+        PORTB &=~(1<<PB3);
+    }
+    if (_timer_tick == _duty3){
+        PORTD &=~(1<<PD3);
+    }
+    if (_timer_tick == _duty4){
+        PORTD &=~(1<<PD6);
+    }
+    if (_timer_tick == _duty5){
+        PORTD &=~(1<<PD5);
     }
     
     _timer_tick++;
