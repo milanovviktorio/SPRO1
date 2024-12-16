@@ -6,12 +6,13 @@
 #include "i2cmaster.h"
 #include "lcd.h"
 
+void menu(void);
 void mainDoor_room1(void);
 void room2(void);
 void room3(void);
 void party(void);
 
-unsigned int ldr_value, red, green, blue, value;
+unsigned int ldr_value, red, green, blue, value, md_state, room1_state, room2_state, room3_state;
 
 int main(void) {  
 
@@ -50,8 +51,8 @@ int main(void) {
   PORTB |= (1 << PB0); //pullup
 
 
-  uart_init(); 
-  io_redirect(); 
+  //uart_init(); 
+  //io_redirect(); 
   pwm_init();
   adc_init();
 
@@ -78,11 +79,18 @@ int main(void) {
     {
       state = 3; 
     }
+    else
+    {
+      state = 0;
+    }
     
 
     //state machine
     switch (state)
     {
+    case 0:
+      menu();
+      break;
     case 1:
       mainDoor_room1();
       break;
@@ -99,6 +107,22 @@ int main(void) {
   }
 }
 
+void menu(void)
+{
+  LCD_set_cursor(0,0);
+  printf("Menu options:");
+
+  LCD_set_cursor(0,1);
+  printf("Button1: Room 1 Door");
+
+  LCD_set_cursor(0,2);
+  printf("Button2: Room 2     ");
+
+  LCD_set_cursor(0,3);
+  printf("Button3: Room 3     ");
+
+}
+
 void mainDoor_room1(void)
 {
   //maindoor
@@ -106,25 +130,19 @@ void mainDoor_room1(void)
   
 
   LCD_set_cursor(0,0);
-  printf("Main door: %d", ldr_value);
+  printf("Main door: %d   ", ldr_value);
 
-  if(PIND & (1 << PD0))
-  { 
-      pwm_set_duty(0,0,0,0,ldr_value-41);
-      //_delay_ms(100);
-  }
-  else{
-    PORTB &= 0<<PB2;
-    pwm_set_duty(0,0,0,0,0);
-  } 
-  _delay_ms(100); 
+  //pwm_set_duty(room1_state, red, green, blue, ldr_value - 41);
+
+
 
 
   //room1 
-  red = adc_read(1)/10;
+  room1_state = adc_read(1)/10;
 
-  pwm_set_duty(red,0,0,0,0);
-  //_delay_ms(100);
+
+  pwm_set_duty(room1_state, red, green, blue, ldr_value - 41);
+  
   
   
 
@@ -133,25 +151,28 @@ void mainDoor_room1(void)
       PORTB |= (1 << PB5);
 
       LCD_set_cursor(0,1);
-      printf("ROOM 1      ");
+      printf("ROOM 1              ");
 
       LCD_set_cursor(0,2);
-      printf("Light intensity: %d", red);  
+      printf("Light intensity: %d", adc_read(1));  
 
       LCD_set_cursor(0, 3);
-      printf("Fan ON   ");
+      printf("Fan ON           ");
+
     }
+    
+
   else {
-      PORTB &= ~(1 << PB5);
       LCD_set_cursor(0,1);
-      printf("ROOM 1      ");
+      printf("ROOM 1              ");
 
       LCD_set_cursor(0,2);
-      printf("Light intensity: %d", red);  
+      printf("Light intensity: %d ", adc_read(1));  
 
       LCD_set_cursor(0, 3);
-    
-      printf("Fan OFF   ");
+      printf("Fan ON           ");
+
+
   }
 }
 
@@ -160,7 +181,7 @@ void room2(void)
 {
  if (!(PIND & (1 << PD7)) ^ (!(PINB & (1 << PB4)))) {
       LCD_set_cursor(0, 0);
-      printf("ROOM 2      ");
+      printf("ROOM 2       ");
       LCD_set_cursor(0, 1);
       printf("                    ");       
       LCD_set_cursor(0, 2);
@@ -172,7 +193,7 @@ void room2(void)
     } 
     else {
       LCD_set_cursor(0, 0);
-      printf("ROOM 2      ");
+      printf("ROOM 2       ");
       LCD_set_cursor(0, 1);
       printf("                    ");      
       LCD_set_cursor(0, 2);
@@ -195,17 +216,17 @@ void room3(void)
 
   if(adc_read(7)<127)
   {
-    pwm_set_duty(0,red,green,blue,0);
+    pwm_set_duty(room1_state, red, green, blue, ldr_value - 41);
 
     
     LCD_set_cursor(0, 0);
-    printf("ROOM 3      ");    
+    printf("ROOM 3             ");    
     LCD_set_cursor(0, 1);
-    printf("Red: %d", red);
+    printf("Red: %d              ", red);
     LCD_set_cursor(0, 2);
     printf("Green: %d           ", green);
     LCD_set_cursor(0, 3);
-    printf("Blue: %d", blue);
+    printf("Blue: %d            ", blue);
     
 
     //_delay_ms(100);
@@ -217,11 +238,6 @@ void room3(void)
 
 void party(void)
 {
-
-
-
-
-    
 
     // Frame 1: Arms up, legs spread
     
@@ -236,9 +252,9 @@ void party(void)
     _delay_ms(300);
 
     
-    pwm_set_duty(0,0,0,0,0);
+    pwm_set_duty(room1_state, 0, 0, 0, ldr_value - 41);
     _delay_ms(100);
-    pwm_set_duty(0,50,0,0,0);
+    pwm_set_duty(room1_state,50,0,0,ldr_value - 41);
     _delay_ms(100);
 
     // Frame 2: Arms down, legs together
@@ -252,9 +268,9 @@ void party(void)
     printf("       |  ");
     _delay_ms(300);
 
-    pwm_set_duty(0,100,0,0,0);
+    pwm_set_duty(room1_state,100,0,0,ldr_value - 41);
     _delay_ms(100);
-    pwm_set_duty(0,100,50,0,0);
+    pwm_set_duty(room1_state,100,50,0,ldr_value - 41);
     _delay_ms(100);
 
     // Frame 3: Arms waving, legs crossed
@@ -268,9 +284,9 @@ void party(void)
     printf("      / \\ ");
     _delay_ms(300);
 
-    pwm_set_duty(0,100,100,0,0);
+    pwm_set_duty(room1_state,100,100,0,ldr_value - 41);
     _delay_ms(100);
-      pwm_set_duty(0,100,100,50,0);
+      pwm_set_duty(room1_state,100,100,50,ldr_value - 41);
     _delay_ms(100);
 
     // Frame 4: Arms out, legs crossed
@@ -285,7 +301,7 @@ void party(void)
     printf("       X  ");
     _delay_ms(300);
 
-    pwm_set_duty(0,100,100,100,0);
+    pwm_set_duty(room1_state,100,100,100,ldr_value - 41);
   }
     
 
