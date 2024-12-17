@@ -72,6 +72,60 @@ void mainDoor(void)
   ldr_value = ldr_value*100/1023;
   
   LCD_set_cursor(0,0);
+  printf("Main door \n");
+  LCD_set_cursor(0,1);
+  printf("Light intensity: %d\n", 100-(int)ldr_value);
+  if(PIND & (1 << PD0))
+  {
+    pwm_set_duty(0,100-(int)ldr_value,0,0,0,0);
+    _delay_ms(100);
+  }else{
+    PORTB &= 0<<PB2;
+    pwm_set_duty(0,0,0,0,0,0);
+  } 
+  _delay_ms(100);
+}
+
+void room1(void)
+{
+  ldr_value = adc_read(6);//LDR
+  ldr_value = ldr_value*100/1023;
+
+  red = adc_read(1);
+  green = adc_read(2);
+  blue = adc_read(3);
+  red = red*100/1023;
+  green = green*100/1023;
+  blue = blue*100/1023;
+
+  LCD_set_cursor(0,0);
+  printf("Main door: \n");
+  LCD_set_cursor(0,1);
+  printf("Light intensity: %d\n", 100-(int)ldr_value);
+  if(PIND & (1 << PD0))
+  {
+    pwm_set_duty(0,0,100-(int)ldr_value,0,0,0);
+    _delay_ms(100);
+  }else{
+    PORTB &= 0<<PB2;
+    pwm_set_duty(0,0,0,0,0,0);
+  } 
+  _delay_ms(100);
+}
+
+void room2(void)
+{
+  ldr_value = adc_read(6);//LDR
+  ldr_value = ldr_value*100/1023;
+
+  red = adc_read(1);
+  green = adc_read(2);
+  blue = adc_read(3);
+  red = red*100/1023;
+  green = green*100/1023;
+  blue = blue*100/1023;
+
+  LCD_set_cursor(0,0);
   printf("Main door: \n");
   LCD_set_cursor(0,1);
   printf("Light intensity: %d\n", 100-(int)ldr_value);
