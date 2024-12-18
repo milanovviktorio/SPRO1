@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <avr/io.h>
 #include <util/delay.h>
-#include "usart.h"
+
 #include "adcpwm.h"
 #include "i2cmaster.h"
 #include "lcd.h"
+
 
 void menu(void);
 void mainDoor_room1(void);
@@ -12,16 +13,20 @@ void room2(void);
 void room3(void);
 void party(void);
 
-unsigned int ldr_value, red, green, blue, value, md_state, room1_state, room2_state, room3_state, md_state;
-int fanOn = 0, room2light = 0;
+
+unsigned int ldr_value, red, green, blue, value, md_state, room1_state, room2_state, room3_state, md_state, party_counter;
+
+int state = 0;//init state - main door
+
+int fanOn = 0, room2light = 0, menu_counter = 0;
 
 int main(void) {  
-
-  int state = 0;//init state - main door
-
+  PORTB=0;PORTC=0;PORTD=0;
+  PINB=0;PINC=0;PIND=0;
+  DDRB=0;DDRC=0;DDRD=0;
   //maindoor definitions
   DDRB |= 1 << PB2;//white main door
-  DDRD |= 0 << PD0;//PIR
+  DDRD &= ~(1 << PD4); //switch 1 room 2 ;//PIR
   // DDRC |= 0 << PC6;//ldr
 
   //room1 definitions
@@ -46,13 +51,16 @@ int main(void) {
   DDRC |= 0 << 7;//switch room 3
 
   //menu controlls
-  DDRD &= ~((1 << PD1) | (1 << PD4)); // PD1, PD4 as inputs
-  PORTD |= ((1 << PD1) | (1 << PD4)); //pullup
+  DDRD &= ~((1 << PD1) | (1 << PD0)); // PD1, PD0 as inputs
+  PORTD |= ((1 << PD1) | (1 << PD0)); //pullup
   DDRB &= ~(1 << PB0);               // PB0 as input
   PORTB |= (1 << PB0); //pullup
+  
 
   //uart_init(); 
   //io_redirect(); 
+
+
   pwm_init();
   adc_init();
 
@@ -60,26 +68,38 @@ int main(void) {
   LCD_init();
 
   while(1) {
-    /*if (!(PIND & (1 << PD4)) && !(PIND & (1 << PD1)))
+
+    if (menu_counter >= 250) {
+      state = 0;          
+    }
+    
+    if (!(PIND & (1 << PD0)) && !(PIND & (1 << PD1)))
     {
       state = 4;
-    }*/
-    if (!(PIND & (1 << PD1))) 
+      menu_counter = 0;
+    }
+    else if (!(PIND & (1 << PD1))) 
     {
-      state = 1; 
+      state = 1;
+      menu_counter = 0;
     }
     else if (!(PINB & (1 << PB0))) 
     {
-      state = 2; 
+      state = 2;
+      menu_counter = 0;
     }
-    else if (!(PIND & (1 << PD4))) 
+    else if (!(PIND & (1 << PD0))) 
     {
-      state = 3; 
+      state = 3;
+      menu_counter = 0;
     }
+
+    menu_counter = menu_counter + 1;
 
     mainDoor_room1();
     room2();
     room3();
+    
 
     //state machine
     switch (state)
@@ -96,16 +116,14 @@ int main(void) {
 
       LCD_set_cursor(0,3);
       printf("Button3: Room 3     ");
-
       break;
-
     case 1:
       LCD_set_cursor(0,0);
       printf("Main door: %d  ", ldr_value);
       LCD_set_cursor(0,1);
       printf("ROOM 1              ");
       LCD_set_cursor(0,2);
-      printf("Light intensity: %d", room1_state);  
+      printf("Light intensity: %d ", room1_state);  
 
       //fan prints
       if (fanOn == 1) { 
@@ -116,7 +134,6 @@ int main(void) {
         LCD_set_cursor(0, 3);
         printf("Fan OFF           ");
       }
-
       break;
     case 2:
       LCD_set_cursor(0, 0);
@@ -139,16 +156,32 @@ int main(void) {
     case 3:
       LCD_set_cursor(0, 0);
       printf("ROOM 3             ");    
-      LCD_set_cursor(0, 1);
-      printf("Red: %d             ", red);
+      
+      if (red>10){
+        LCD_set_cursor(0, 1);
+        printf("Red: %d             ", red);
+      }
+      else
+      {
+        LCD_set_cursor(0, 1);
+        printf("Red: %d              ", red); 
+      }
       LCD_set_cursor(0, 2);
-      printf("Green: %d          ", green);
+      printf("Green: %d         ", green);
       LCD_set_cursor(0, 3);
       printf("Blue: %d           ", blue);
       break;
-    /*case 4:
+    case 4:
       LCD_set_cursor(0, 0);
-      printf("party mode         ");*/
+      printf("party mode         ");
+      LCD_set_cursor(0, 1);
+      printf("                    ");
+      LCD_set_cursor(0, 2);
+      printf("                   ");
+      LCD_set_cursor(0, 3);
+      printf("                   ");
+      party();
+      break; 
     }
   }
 }
@@ -156,23 +189,18 @@ int main(void) {
 void mainDoor_room1(void)
 {
   //maindoor
-  //LDR
-  room1_state = adc_read(0)/10;
-  //pwm_set_duty(room1_state, red, green, blue, ldr_value - 41);
+  room1_state = (adc_read(0)*10)/102;
 
   //room1
-  if (PIND & 1){
-    ldr_value = adc_read(6)/10;
+  if (PIND & (1 << PD4)){
+    ldr_value = (adc_read(6)*10)/102;
   }
   else
   {
    ldr_value = 0;
   }
 
-
-  //room1_state = adc_read(0)/10;
-  pwm_set_duty(room1_state, red, green, blue, ldr_value - 41);
-
+  pwm_set_duty(room1_state, red, green, blue, ldr_value);
 
   //fan trust
   if (!((PINB >> 3) & 1)) 
@@ -199,19 +227,19 @@ void room2(void)
     room2light = 0;
     PORTD &= ~(1 << PD2);    
   }
-  //_delay_ms(50); 
+
   
 }
 
 void room3(void)
 {
-  
+  if(state!=4) {
 
   if(!adc_read(7))
   {
-    red = adc_read(1)/10;
-    green = adc_read(2)/10;
-    blue = adc_read(3)/10;
+    red = (adc_read(1)*10)/102;
+    green = (adc_read(2)*10)/102;
+    blue = (adc_read(3)*10)/102;
   }
   else
   {
@@ -219,31 +247,50 @@ void room3(void)
     green=0;
     blue=0;
   }
+  }
+  pwm_set_duty(room1_state, red, green, blue, ldr_value);
   
-  pwm_set_duty(room1_state, red, green, blue, ldr_value - 41);
-  //_delay_ms(100);
 }
 
-/*void party(void)
-{
-    // Frame 1: Arms up, legs spread
-    pwm_set_duty(room1_state, 0, 0, 0, ldr_value - 41);
-    _delay_ms(100);
-    pwm_set_duty(room1_state,50,0,0,ldr_value - 41);
-    _delay_ms(100);
-
-    // Frame 2: Arms down, legs together
-    pwm_set_duty(room1_state,100,0,0,ldr_value - 41);
-    _delay_ms(100);
-    pwm_set_duty(room1_state,100,50,0,ldr_value - 41);
-    _delay_ms(100);
-
-    // Frame 3: Arms waving, legs crossed
-    pwm_set_duty(room1_state,100,100,0,ldr_value - 41);
-    _delay_ms(100);
-      pwm_set_duty(room1_state,100,100,50,ldr_value - 41);
-    _delay_ms(100);
-
-    // Frame 4: Arms out, legs crossed
-    pwm_set_duty(room1_state,100,100,100,ldr_value - 41);
-  }*/
+void party(void)
+{   
+    party_counter=menu_counter%50;
+    if(!adc_read(7) && state==4){
+      if (7>party_counter && 0<=party_counter){
+        red=0;
+        green=0;
+        blue=0;
+      }
+      if (14>party_counter && 7<=party_counter){
+        red=50;
+        green=0;
+        blue=0;
+      }
+      if (21>party_counter && 14<=party_counter){
+        red=100;
+        green=0;
+        blue=0;
+      }
+      if (28>party_counter && 21<=party_counter){
+        red=100;
+        green=50;
+        blue=0;
+      }
+      if (35>party_counter && 28<=party_counter){
+        red=100;
+        green=100;
+        blue=0;
+      }
+      if (42>party_counter && 35<=party_counter){
+        red=100;
+        green=100;
+        blue=50;
+      }
+      if (50>party_counter && 42<=party_counter){
+        red=100;
+        green=100;
+        blue=100;
+      }
+      pwm_set_duty(room1_state, red, green, blue, ldr_value);
+    }
+}
